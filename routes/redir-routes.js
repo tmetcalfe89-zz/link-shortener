@@ -3,7 +3,8 @@ const path = require('path')
 
 module.exports = (app) => {
   app.get("/*", (req, res, next) => {
-    let routes = require('../db/redirs.json')
+    // let routes = require('../db/redirs.json')
+    let routes = JSON.parse(fs.readFileSync(path.join(__dirname, '../db/redirs.json')));
     if (routes[req.originalUrl]) {
       routes[req.originalUrl].count++
       fs.writeFileSync(path.join(__dirname, '../db/redirs.json'), JSON.stringify(routes, null, 2))
